@@ -41,7 +41,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
+            justify-content: center;
+            padding: 1.5rem;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -76,17 +77,16 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 500px;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
+            gap: 1.25rem;
         }
 
         h1 {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-size: 1.25rem;
             font-weight: 600;
             text-align: center;
             letter-spacing: -0.02em;
@@ -128,32 +128,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
-            padding: 2rem;
+            gap: 1.25rem;
+            padding: 1.5rem;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 14px;
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
         }
 
         .lobby h2 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 500;
         }
 
         .lobby-actions {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
             width: 100%;
         }
 
         .btn {
             font-family: var(--font-mono);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 500;
-            padding: 1rem 1.5rem;
+            padding: 0.875rem 1.25rem;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s var(--ease-out-expo);
@@ -205,6 +205,7 @@
 
         .input {
             flex: 1;
+            min-width: 0;
             font-family: var(--font-mono);
             font-size: 1rem;
             padding: 0.75rem 1rem;
@@ -215,6 +216,12 @@
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 0.2em;
+        }
+
+        .input-group .btn-secondary {
+            width: auto;
+            flex-shrink: 0;
+            padding: 0.75rem 1.25rem;
         }
 
         .input:focus {
@@ -233,15 +240,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
-            padding: 1.5rem;
+            gap: 0.35rem;
+            padding: 1rem;
             background: var(--bg-elevated);
-            border-radius: 12px;
+            border-radius: 10px;
             width: 100%;
         }
 
         .room-code-label {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -249,14 +256,14 @@
 
         .room-code-value {
             font-family: var(--font-mono);
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 600;
             color: var(--accent-primary);
             letter-spacing: 0.3em;
         }
 
         .room-code-copy {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             cursor: pointer;
             transition: color 0.3s;
@@ -271,9 +278,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            padding: 2rem;
+            gap: 0.75rem;
+            padding: 1rem;
             color: var(--text-secondary);
+        }
+
+        .waiting p {
+            font-size: 0.85rem;
         }
 
         .waiting-dots {
@@ -302,7 +313,7 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
             width: 100%;
         }
 
@@ -312,11 +323,11 @@
 
         .scoreboard {
             display: flex;
-            gap: 2rem;
-            padding: 1rem 2rem;
+            gap: 1.5rem;
+            padding: 0.75rem 1.5rem;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .score {
@@ -328,7 +339,7 @@
 
         .score-label {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -336,7 +347,7 @@
 
         .score-value {
             font-family: var(--font-mono);
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 600;
             color: var(--accent-primary);
         }
@@ -350,8 +361,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 3rem;
-            padding: 2rem;
+            gap: 2rem;
+            padding: 1rem;
             width: 100%;
         }
 
@@ -359,12 +370,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .player-label {
             font-family: var(--font-mono);
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
         }
 
@@ -373,15 +384,15 @@
         }
 
         .choice-display {
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            font-size: 3rem;
             background: var(--bg-card);
             border: 2px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 14px;
             transition: all 0.4s var(--ease-out-expo);
         }
 
@@ -411,15 +422,15 @@
 
         .vs {
             font-family: var(--font-mono);
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-muted);
         }
 
         .result {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            min-height: 2rem;
+            min-height: 1.5rem;
             transition: all 0.3s var(--ease-out-expo);
         }
 
@@ -429,7 +440,7 @@
 
         .round-info {
             font-family: var(--font-mono);
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
         }
 
@@ -437,25 +448,25 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
+            gap: 0.75rem;
+            padding: 1rem;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 14px;
         }
 
         .choice-btn {
-            width: 80px;
-            height: 80px;
+            width: 64px;
+            height: 64px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.25rem;
-            font-size: 2.5rem;
+            gap: 0.15rem;
+            font-size: 2rem;
             background: var(--bg-elevated);
             border: 2px solid var(--border-subtle);
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s var(--ease-out-expo);
         }
@@ -478,18 +489,18 @@
 
         .choice-btn span {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             color: var(--text-muted);
             text-transform: uppercase;
         }
 
         .status-bar {
             font-family: var(--font-mono);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             background: var(--bg-card);
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .status-bar.waiting {
@@ -517,37 +528,70 @@
             display: none !important;
         }
 
-        @media (max-width: 600px) {
-            .arena {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.4s var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
 
-            .vs {
-                transform: rotate(90deg);
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.warning {
+            border-color: var(--draw);
+            background: rgba(234, 179, 8, 0.1);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--draw);
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 500px) {
+            .arena {
+                gap: 1.25rem;
             }
 
             .choice-display {
-                width: 100px;
-                height: 100px;
-                font-size: 3rem;
+                width: 75px;
+                height: 75px;
+                font-size: 2.5rem;
             }
 
             .choice-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
+                width: 56px;
+                height: 56px;
+                font-size: 1.6rem;
             }
 
             .back-link {
                 position: relative;
                 top: 0;
                 left: 0;
-                margin-bottom: 1rem;
-            }
-
-            .container {
-                margin-top: 0;
+                margin-bottom: 0.5rem;
+                align-self: flex-start;
             }
         }
     </style>
@@ -556,10 +600,10 @@
     <div class="noise"></div>
 
     <a href="pfcls.html" class="back-link">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
-        Mode solo
+        Retour
     </a>
 
     <div class="container">
@@ -634,23 +678,38 @@
 
             <div class="choices" id="choicesContainer">
                 <button class="choice-btn" data-choice="rock" title="Pierre">
+                    🪨
                     <span>Pierre</span>
                 </button>
                 <button class="choice-btn" data-choice="paper" title="Papier">
+                    📄
                     <span>Papier</span>
                 </button>
                 <button class="choice-btn" data-choice="scissors" title="Ciseaux">
+                    ✂️
                     <span>Ciseaux</span>
                 </button>
                 <button class="choice-btn" data-choice="lizard" title="Lézard">
+                    🦎
                     <span>Lézard</span>
                 </button>
                 <button class="choice-btn" data-choice="spock" title="Spock">
+                    🖖
                     <span>Spock</span>
                 </button>
             </div>
 
             <button class="btn-leave" id="leaveGameBtn">Quitter la partie</button>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="toastMessage">Message</span>
         </div>
     </div>
 
@@ -713,6 +772,18 @@
         const statusBar = document.getElementById('statusBar');
         const choicesContainer = document.getElementById('choicesContainer');
         const choiceBtns = document.querySelectorAll('.choice-btn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Show toast notification
+        function showToast(message, type = 'warning') {
+            toastMessage.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
 
         // Generate room code
         function generateRoomCode() {
@@ -800,7 +871,7 @@
 
             roomListener = roomRef.on('value', (snapshot) => {
                 if (!snapshot.exists()) {
-                    alert('La partie a été fermée');
+                    showToast("La partie a été fermée par l'hôte");
                     resetToLobby();
                     return;
                 }
@@ -842,12 +913,38 @@
                     revealChoices(myChoice, theirChoice, data);
                 }
 
-                // Opponent left
-                if (data.status === 'playing' && ((isHost && !data.guest) || (!isHost && !data.host))) {
-                    alert('Votre adversaire a quitté la partie');
-                    resetToLobby();
+                // Opponent left - handle differently for host vs guest
+                if (data.status === 'waiting' && isHost && gameArea.classList.contains('active')) {
+                    // Guest left, host goes back to waiting room
+                    showToast("Votre adversaire a quitté la partie");
+                    backToWaitingRoom();
+                } else if (!isHost && !data.host) {
+                    // Host deleted the room (handled by !snapshot.exists())
                 }
             });
+        }
+
+        // Back to waiting room (for host when guest leaves)
+        function backToWaitingRoom() {
+            gameArea.classList.remove('active');
+            waitingRoom.classList.remove('hidden');
+
+            // Reset game state but keep room
+            myScore = 0;
+            opponentScore = 0;
+            round = 1;
+            hasChosen = false;
+
+            // Reset scores in Firebase
+            db.ref('rooms/' + currentRoom).update({
+                hostChoice: null,
+                guestChoice: null,
+                hostScore: 0,
+                guestScore: 0,
+                round: 1
+            });
+
+            resetRoundUI();
         }
 
         // Reveal choices and determine winner
