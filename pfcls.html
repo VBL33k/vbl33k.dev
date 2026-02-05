@@ -41,6 +41,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 2rem;
             -webkit-font-smoothing: antialiased;
         }
@@ -76,17 +77,37 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 600px;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-            margin-top: 3rem;
+        }
+
+        .logo {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-emoji {
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-emoji:nth-child(2) { animation-delay: 0.15s; }
+        .logo-emoji:nth-child(3) { animation-delay: 0.3s; }
+        .logo-emoji:nth-child(4) { animation-delay: 0.45s; }
+        .logo-emoji:nth-child(5) { animation-delay: 0.6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         h1 {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 600;
             text-align: center;
             letter-spacing: -0.02em;
@@ -98,233 +119,92 @@
 
         .rules {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             text-align: center;
-            max-width: 500px;
+            max-width: 450px;
             line-height: 1.6;
-            padding: 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
         }
 
-        .scoreboard {
-            display: flex;
-            gap: 2rem;
-            padding: 1rem 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
         }
 
-        .score {
+        .mode-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.25rem;
+            gap: 1rem;
+            padding: 2rem 1.5rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.4s var(--ease-out-expo);
+            cursor: pointer;
         }
 
-        .score-label {
+        .mode-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(34, 211, 238, 0.15);
+        }
+
+        .mode-card:hover .mode-icon {
+            transform: scale(1.1);
+            color: var(--accent-primary);
+        }
+
+        .mode-icon {
+            width: 48px;
+            height: 48px;
+            color: var(--text-secondary);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .mode-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .mode-desc {
             font-family: var(--font-mono);
             font-size: 0.7rem;
             color: var(--text-muted);
+            text-align: center;
+        }
+
+        .mode-card--multi {
+            position: relative;
+        }
+
+        .mode-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--bg-deep);
+            background: var(--win);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .score-value {
-            font-family: var(--font-mono);
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--accent-primary);
-        }
-
-        .score-divider {
-            width: 1px;
-            background: var(--border-subtle);
-        }
-
-        .arena {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            padding: 2rem;
-            width: 100%;
-        }
-
-        .player-zone {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .player-label {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .choice-display {
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            background: var(--bg-card);
-            border: 2px solid var(--border-subtle);
-            border-radius: 16px;
-            transition: all 0.4s var(--ease-out-expo);
-        }
-
-        .choice-display.win {
-            border-color: var(--win);
-            box-shadow: 0 0 30px rgba(34, 197, 94, 0.2);
-        }
-
-        .choice-display.lose {
-            border-color: var(--lose);
-            box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
-        }
-
-        .choice-display.draw {
-            border-color: var(--draw);
-            box-shadow: 0 0 30px rgba(234, 179, 8, 0.2);
-        }
-
-        .vs {
-            font-family: var(--font-mono);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .result {
-            font-size: 1.5rem;
-            font-weight: 600;
-            height: 2rem;
-            transition: all 0.3s var(--ease-out-expo);
-        }
-
-        .result.win { color: var(--win); }
-        .result.lose { color: var(--lose); }
-        .result.draw { color: var(--draw); }
-
-        .choices {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-        }
-
-        .choice-btn {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.25rem;
-            font-size: 2.5rem;
-            background: var(--bg-elevated);
-            border: 2px solid var(--border-subtle);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-out-expo);
-        }
-
-        .choice-btn:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px -10px var(--accent-glow);
-        }
-
-        .choice-btn:active {
-            transform: translateY(0);
-        }
-
-        .choice-btn span {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .reset-btn {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-out-expo);
-        }
-
-        .reset-btn:hover {
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(-10deg); }
-            75% { transform: rotate(10deg); }
-        }
-
-        .choice-display.thinking {
-            animation: shake 0.3s ease-in-out infinite;
-        }
-
-        .multi-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--win);
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 8px;
-            background: rgba(34, 197, 94, 0.1);
-            transition: all 0.3s var(--ease-out-expo);
-        }
-
-        .multi-link:hover {
-            background: rgba(34, 197, 94, 0.2);
-            border-color: var(--win);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 600px) {
-            .arena {
-                flex-direction: column;
-                gap: 1.5rem;
+        @media (max-width: 500px) {
+            .mode-selector {
+                grid-template-columns: 1fr;
             }
 
-            .vs {
-                transform: rotate(90deg);
-            }
-
-            .choice-display {
-                width: 100px;
-                height: 100px;
-                font-size: 3rem;
-            }
-
-            .choice-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
+            .mode-card {
+                padding: 1.5rem;
             }
 
             .back-link {
@@ -332,10 +212,11 @@
                 top: 0;
                 left: 0;
                 margin-bottom: 1rem;
+                align-self: flex-start;
             }
 
-            .container {
-                margin-top: 0;
+            .logo-emoji {
+                font-size: 2rem;
             }
         }
     </style>
@@ -351,190 +232,42 @@
     </a>
 
     <div class="container">
+        <div class="logo">
+            <span class="logo-emoji">🪨</span>
+            <span class="logo-emoji">📄</span>
+            <span class="logo-emoji">✂️</span>
+            <span class="logo-emoji">🦎</span>
+            <span class="logo-emoji">🖖</span>
+        </div>
+
         <h1>Pierre Feuille Ciseaux <span>Lézard Spock</span></h1>
 
-        <div class="rules">
+        <p class="rules">
             Ciseaux coupent Papier · Papier recouvre Pierre · Pierre écrase Lézard · Lézard empoisonne Spock · Spock casse Ciseaux · Ciseaux décapitent Lézard · Lézard mange Papier · Papier réfute Spock · Spock vaporise Pierre · Pierre écrase Ciseaux
+        </p>
+
+        <div class="mode-selector">
+            <a href="pfcls-solo.html" class="mode-card">
+                <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="4" y="4" width="16" height="16" rx="2"/>
+                    <path d="M9 9h.01M15 9h.01M9 15c.83.67 1.83 1 3 1s2.17-.33 3-1"/>
+                </svg>
+                <span class="mode-title">Solo</span>
+                <span class="mode-desc">Affrontez l'ordinateur</span>
+            </a>
+
+            <a href="pfcls-multi.html" class="mode-card mode-card--multi">
+                <span class="mode-badge">Online</span>
+                <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span class="mode-title">Multijoueur</span>
+                <span class="mode-desc">Défiez vos amis en ligne</span>
+            </a>
         </div>
-
-        <div class="scoreboard">
-            <div class="score">
-                <span class="score-label">Vous</span>
-                <span class="score-value" id="playerScore">0</span>
-            </div>
-            <div class="score-divider"></div>
-            <div class="score">
-                <span class="score-label">Ordi</span>
-                <span class="score-value" id="computerScore">0</span>
-            </div>
-        </div>
-
-        <div class="arena">
-            <div class="player-zone">
-                <span class="player-label">Vous</span>
-                <div class="choice-display" id="playerChoice">?</div>
-            </div>
-
-            <span class="vs">VS</span>
-
-            <div class="player-zone">
-                <span class="player-label">Ordi</span>
-                <div class="choice-display" id="computerChoice">?</div>
-            </div>
-        </div>
-
-        <div class="result" id="result">&nbsp;</div>
-
-        <div class="choices">
-            <button class="choice-btn" data-choice="rock" title="Pierre">
-                <span>Pierre</span>
-            </button>
-            <button class="choice-btn" data-choice="paper" title="Papier">
-                <span>Papier</span>
-            </button>
-            <button class="choice-btn" data-choice="scissors" title="Ciseaux">
-                <span>Ciseaux</span>
-            </button>
-            <button class="choice-btn" data-choice="lizard" title="Lézard">
-                <span>Lézard</span>
-            </button>
-            <button class="choice-btn" data-choice="spock" title="Spock">
-                <span>Spock</span>
-            </button>
-        </div>
-
-        <button class="reset-btn" id="resetBtn">Réinitialiser les scores</button>
-
-        <a href="pfcls-multi.html" class="multi-link">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            Mode Multijoueur
-        </a>
     </div>
-
-    <script>
-        const choices = {
-            rock: { emoji: '🪨', beats: ['scissors', 'lizard'] },
-            paper: { emoji: '📄', beats: ['rock', 'spock'] },
-            scissors: { emoji: '✂️', beats: ['paper', 'lizard'] },
-            lizard: { emoji: '🦎', beats: ['paper', 'spock'] },
-            spock: { emoji: '🖖', beats: ['scissors', 'rock'] }
-        };
-
-        const choiceNames = {
-            rock: 'Pierre',
-            paper: 'Papier',
-            scissors: 'Ciseaux',
-            lizard: 'Lézard',
-            spock: 'Spock'
-        };
-
-        let playerScore = 0;
-        let computerScore = 0;
-
-        const playerChoiceEl = document.getElementById('playerChoice');
-        const computerChoiceEl = document.getElementById('computerChoice');
-        const resultEl = document.getElementById('result');
-        const playerScoreEl = document.getElementById('playerScore');
-        const computerScoreEl = document.getElementById('computerScore');
-        const resetBtn = document.getElementById('resetBtn');
-        const choiceBtns = document.querySelectorAll('.choice-btn');
-
-        function getComputerChoice() {
-            const keys = Object.keys(choices);
-            return keys[Math.floor(Math.random() * keys.length)];
-        }
-
-        function determineWinner(player, computer) {
-            if (player === computer) return 'draw';
-            if (choices[player].beats.includes(computer)) return 'win';
-            return 'lose';
-        }
-
-        function getWinMessage(winner, loser) {
-            const messages = {
-                'scissors-paper': 'Ciseaux coupent Papier',
-                'paper-rock': 'Papier recouvre Pierre',
-                'rock-lizard': 'Pierre écrase Lézard',
-                'lizard-spock': 'Lézard empoisonne Spock',
-                'spock-scissors': 'Spock casse Ciseaux',
-                'scissors-lizard': 'Ciseaux décapitent Lézard',
-                'lizard-paper': 'Lézard mange Papier',
-                'paper-spock': 'Papier réfute Spock',
-                'spock-rock': 'Spock vaporise Pierre',
-                'rock-scissors': 'Pierre écrase Ciseaux'
-            };
-            return messages[`${winner}-${loser}`] || '';
-        }
-
-        function play(playerChoice) {
-            // Reset classes
-            playerChoiceEl.className = 'choice-display thinking';
-            computerChoiceEl.className = 'choice-display thinking';
-            resultEl.textContent = '';
-            resultEl.className = 'result';
-
-            // Disable buttons during animation
-            choiceBtns.forEach(btn => btn.disabled = true);
-
-            setTimeout(() => {
-                const computerChoice = getComputerChoice();
-                const result = determineWinner(playerChoice, computerChoice);
-
-                playerChoiceEl.textContent = choices[playerChoice].emoji;
-                computerChoiceEl.textContent = choices[computerChoice].emoji;
-
-                playerChoiceEl.classList.remove('thinking');
-                computerChoiceEl.classList.remove('thinking');
-
-                if (result === 'win') {
-                    playerScore++;
-                    playerScoreEl.textContent = playerScore;
-                    playerChoiceEl.classList.add('win');
-                    computerChoiceEl.classList.add('lose');
-                    resultEl.textContent = `Gagné ! ${getWinMessage(playerChoice, computerChoice)}`;
-                    resultEl.classList.add('win');
-                } else if (result === 'lose') {
-                    computerScore++;
-                    computerScoreEl.textContent = computerScore;
-                    playerChoiceEl.classList.add('lose');
-                    computerChoiceEl.classList.add('win');
-                    resultEl.textContent = `Perdu ! ${getWinMessage(computerChoice, playerChoice)}`;
-                    resultEl.classList.add('lose');
-                } else {
-                    playerChoiceEl.classList.add('draw');
-                    computerChoiceEl.classList.add('draw');
-                    resultEl.textContent = `Égalité ! ${choiceNames[playerChoice]} contre ${choiceNames[computerChoice]}`;
-                    resultEl.classList.add('draw');
-                }
-
-                // Re-enable buttons
-                choiceBtns.forEach(btn => btn.disabled = false);
-            }, 500);
-        }
-
-        choiceBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                play(btn.dataset.choice);
-            });
-        });
-
-        resetBtn.addEventListener('click', () => {
-            playerScore = 0;
-            computerScore = 0;
-            playerScoreEl.textContent = '0';
-            computerScoreEl.textContent = '0';
-            playerChoiceEl.textContent = '?';
-            computerChoiceEl.textContent = '?';
-            playerChoiceEl.className = 'choice-display';
-            computerChoiceEl.className = 'choice-display';
-            resultEl.textContent = '';
-            resultEl.className = 'result';
-        });
-    </script>
 </body>
 </html>
