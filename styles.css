@@ -643,6 +643,54 @@ img {
     margin: 0 auto;
 }
 
+.project__image-wrapper--game {
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+}
+
+.project__game-preview {
+    display: flex;
+    gap: 1rem;
+    font-size: 3rem;
+}
+
+.game-emoji {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: var(--bg-deep);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    transition: all 0.3s var(--ease-out-expo);
+}
+
+.project:hover .game-emoji {
+    border-color: var(--accent-primary);
+}
+
+.project:hover .game-emoji:nth-child(1) { transform: translateY(-8px); transition-delay: 0s; }
+.project:hover .game-emoji:nth-child(2) { transform: translateY(-8px); transition-delay: 0.05s; }
+.project:hover .game-emoji:nth-child(3) { transform: translateY(-8px); transition-delay: 0.1s; }
+.project:hover .game-emoji:nth-child(4) { transform: translateY(-8px); transition-delay: 0.15s; }
+.project:hover .game-emoji:nth-child(5) { transform: translateY(-8px); transition-delay: 0.2s; }
+
+@media (max-width: 768px) {
+    .project__game-preview {
+        gap: 0.5rem;
+        font-size: 2rem;
+    }
+
+    .game-emoji {
+        width: 50px;
+        height: 50px;
+    }
+}
+
 .project:hover .project__image-wrapper {
     border-color: var(--accent-primary);
     box-shadow: 0 0 0 1px var(--accent-primary),
