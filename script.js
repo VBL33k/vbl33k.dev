@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScrolling();
     initCursorEffects();
     initProjectHoverEffects();
+    initDiscordPopup();
 });
 
 /**
@@ -285,6 +286,50 @@ function initLazyLoading() {
 
 // Initialize lazy loading
 initLazyLoading();
+
+/**
+ * Discord popup functionality
+ */
+function initDiscordPopup() {
+    const discordBtn = document.getElementById('discordBtn');
+    const discordPopup = document.getElementById('discordPopup');
+    const copyDiscordBtn = document.getElementById('copyDiscord');
+
+    if (!discordBtn || !discordPopup) return;
+
+    // Toggle popup on button click
+    discordBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        discordPopup.classList.toggle('show');
+    });
+
+    // Copy Discord tag
+    copyDiscordBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('vblzz').then(() => {
+            copyDiscordBtn.textContent = 'Copié !';
+            copyDiscordBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyDiscordBtn.textContent = 'Copier';
+                copyDiscordBtn.classList.remove('copied');
+            }, 2000);
+        });
+    });
+
+    // Close popup when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!discordPopup.contains(e.target) && e.target !== discordBtn) {
+            discordPopup.classList.remove('show');
+        }
+    });
+
+    // Close popup on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            discordPopup.classList.remove('show');
+        }
+    });
+}
 
 /**
  * Console easter egg
