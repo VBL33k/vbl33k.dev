@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd PFCLS game + rename logo to VBL\n\n- Add Pierre Feuille Ciseaux Lézard Spock mini-game\n- Change logo text from vbl33k to VBL\n- Update project count to 04\n- Add game preview with animated emojis on hover\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd multiplayer mode for PFCLS game\n\n- Add pfcls-multi.html with Firebase Realtime Database integration\n- Room-based matchmaking with 5-character codes\n- Real-time choice sync and score tracking\n- Add link to multiplayer from solo page\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
