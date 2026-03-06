@@ -829,8 +829,6 @@ g.ajouter_arc('C','A')"></textarea>
             </div>
             <div class="panel__section-body" id="secAlgo">
                 <div class="algo-grid">
-                    <button class="algo-btn" onclick="runAlgo('bfs')">BFS</button>
-                    <button class="algo-btn" onclick="runAlgo('dfs')">DFS</button>
                     <button class="algo-btn" onclick="runAlgo('coloring')">Coloration</button>
                     <button class="algo-btn" onclick="runAlgo('components')">Composantes</button>
                     <button class="algo-btn" onclick="runAlgo('dijkstra')">Plus court</button>
@@ -1015,13 +1013,9 @@ g.ajouter_arc('C','A')"></textarea>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Centrer sur ce nœud
     </div>
-    <div class="ctx-item" onclick="ctxAction('bfs')">
+    <div class="ctx-item" onclick="ctxAction('dijkstra')">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-        BFS depuis ici
-    </div>
-    <div class="ctx-item" onclick="ctxAction('dfs')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
-        DFS depuis ici
+        Dijkstra depuis ici
     </div>
     <div class="ctx-item" onclick="ctxAction('neighbors')">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
@@ -1284,13 +1278,37 @@ function runSimStep() {
         if (!b.pinned) { b.vx -= fx; b.vy -= fy; }
     }
 
-    // Centering
-    let cx = 0, cy = 0;
-    nodes.forEach(n => { cx += n.x; cy += n.y; });
-    cx /= nodes.length || 1; cy /= nodes.length || 1;
+    // Centering — global + per-component to avoid disconnected components drifting far
+    let gcx = 0, gcy = 0;
+    nodes.forEach(n => { gcx += n.x; gcy += n.y; });
+    gcx /= nodes.length || 1; gcy /= nodes.length || 1;
     nodes.forEach(n => {
-        if (!n.pinned) { n.vx -= cx * 0.005 * alpha; n.vy -= cy * 0.005 * alpha; }
+        if (!n.pinned) { n.vx -= gcx * 0.01 * alpha; n.vy -= gcy * 0.01 * alpha; }
     });
+
+    // Per-component centering: pull each component toward origin
+    const compMap = {};
+    const visited = new Set();
+    for (const node of nodes) {
+        if (visited.has(node.id)) continue;
+        const comp = [];
+        const queue = [node.id];
+        visited.add(node.id);
+        while (queue.length) {
+            const cur = queue.shift();
+            comp.push(cur);
+            for (const nb of getNeighbors(cur)) {
+                if (!visited.has(nb)) { visited.add(nb); queue.push(nb); }
+            }
+        }
+        let ccx = 0, ccy = 0;
+        comp.forEach(id => { ccx += graph.nodes[id].x; ccy += graph.nodes[id].y; });
+        ccx /= comp.length; ccy /= comp.length;
+        comp.forEach(id => {
+            const n = graph.nodes[id];
+            if (!n.pinned) { n.vx -= ccx * 0.04 * alpha; n.vy -= ccy * 0.04 * alpha; }
+        });
+    }
 
     // Integrate
     nodes.forEach(n => {
@@ -1536,7 +1554,7 @@ function runAlgo(name) {
     event.target.classList.add('active');
     pendingAlgo = name;
 
-    const needsInput = ['bfs','dfs','dijkstra'].includes(name);
+    const needsInput = ['dijkstra'].includes(name);
     const needsTarget = ['dijkstra'].includes(name);
     document.getElementById('algoInputs').style.display = needsInput ? 'flex' : 'none';
     document.getElementById('algoTo').placeholder = needsTarget ? 'Sommet arrivée' : 'Arrivée (optionnel)';
@@ -1555,8 +1573,6 @@ function executeAlgo() {
     const to = document.getElementById('algoTo').value.trim();
 
     switch (pendingAlgo) {
-        case 'bfs': algoBFS(from || nodes[0]?.id); break;
-        case 'dfs': algoDFS(from || nodes[0]?.id); break;
         case 'coloring': algoColoring(); break;
         case 'components': algoComponents(); break;
         case 'dijkstra': algoDijkstra(from || nodes[0]?.id, to || null); break;
@@ -2098,14 +2114,11 @@ function ctxAction(action) {
     const node = graph.nodes[ctxNode];
     switch (action) {
         case 'focus': focusNode(ctxNode); break;
-        case 'bfs':
-            pendingAlgo = 'bfs';
+        case 'dijkstra':
+            pendingAlgo = 'dijkstra';
             document.getElementById('algoFrom').value = ctxNode;
-            executeAlgo();
-            break;
-        case 'dfs':
-            pendingAlgo = 'dfs';
-            document.getElementById('algoFrom').value = ctxNode;
+            document.getElementById('algoTo').value = '';
+            document.getElementById('algoInputs').style.display = 'flex';
             executeAlgo();
             break;
         case 'neighbors':
@@ -2185,13 +2198,19 @@ importArea.addEventListener('drop', e => {
     if (file) loadFile(file);
 });
 
-fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+fileInput.addEventListener('change', e => {
+    if (e.target.files[0]) loadFile(e.target.files[0]);
+    // Reset so the same file can be reloaded
+    e.target.value = '';
+});
 
 function loadFile(file) {
     const reader = new FileReader();
     reader.onload = e => {
         document.getElementById('codeInput').value = e.target.result;
         showToast(`Fichier chargé: ${file.name}`, 'success');
+        // Auto-parse on file load
+        parseAndRender();
     };
     reader.readAsText(file);
 }
