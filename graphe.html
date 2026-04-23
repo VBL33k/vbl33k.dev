@@ -1101,24 +1101,26 @@ function parseCode(code) {
     const newEdges = [];
     let directed = false;
 
-    // Detect all Graphe variable names
-    const grapheVarRegex = /(\w+)\s*=\s*(?:creation\s*\(|Graphe\s*\()/g;
+    // Detect all Graphe variable names (classe Graphe avec self.adj)
+    const grapheVarRegex = /(\w+)\s*=\s*Graphe\s*\(/g;
     let m;
     const grapheVars = new Set();
     while ((m = grapheVarRegex.exec(code)) !== null) grapheVars.add(m[1]);
-    // Also detect from creation() calls
-    const creationAssign = /(\w+)\s*=\s*creation\s*\([^)]*\)/g;
-    while ((m = creationAssign.exec(code)) !== null) grapheVars.add(m[1]);
+
+    // Build var pattern: match known Graphe instances, or any word if none declared
+    const varPat = grapheVars.size > 0
+        ? `(?:${[...grapheVars].map(v => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`
+        : '\\w+';
 
     // ajouter_sommet
-    const sommetRe = /\w+\.ajouter_sommet\s*\(\s*['"]([^'"]+)['"]\s*\)/g;
+    const sommetRe = new RegExp(varPat + '\\.ajouter_sommet\\s*\\(\\s*[\'"]([^\'"]+)[\'"]\\s*\\)', 'g');
     while ((m = sommetRe.exec(code)) !== null) {
         const id = m[1];
         if (!newNodes[id]) newNodes[id] = makeNode(id);
     }
 
-    // ajouter_arete (undirected)
-    const areteRe = /\w+\.ajouter_arete\s*\(\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\s*\)/g;
+    // ajouter_arete (non orienté)
+    const areteRe = new RegExp(varPat + '\\.ajouter_arete\\s*\\(\\s*[\'"]([^\'"]+)[\'"]\\s*,\\s*[\'"]([^\'"]+)[\'"]\\s*\\)', 'g');
     while ((m = areteRe.exec(code)) !== null) {
         const [, s1, s2] = m;
         if (!newNodes[s1]) newNodes[s1] = makeNode(s1);
@@ -1126,8 +1128,8 @@ function parseCode(code) {
         newEdges.push({ source: s1, target: s2, directed: false });
     }
 
-    // ajouter_arc (directed)
-    const arcRe = /\w+\.ajouter_arc\s*\(\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\s*\)/g;
+    // ajouter_arc (orienté)
+    const arcRe = new RegExp(varPat + '\\.ajouter_arc\\s*\\(\\s*[\'"]([^\'"]+)[\'"]\\s*,\\s*[\'"]([^\'"]+)[\'"]\\s*\\)', 'g');
     while ((m = arcRe.exec(code)) !== null) {
         const [, s1, s2] = m;
         if (!newNodes[s1]) newNodes[s1] = makeNode(s1);
