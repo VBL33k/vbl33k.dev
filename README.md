@@ -14,9 +14,6 @@ Portfolio personnel de VBL - Developpeur Full-Stack.
 - Fonts: Outfit + JetBrains Mono
 - Animations CSS natives
 
-## Lancer en local
-
-Ouvrir `index.html` dans un navigateur.
 
 ## Licence
 
